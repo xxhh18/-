@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#050a20" />
 <title>中秋快乐</title>
 <audio id="bgMusic" loop preload="auto">
-  <source src="./%E9%99%88%E6%85%A7%E5%A8%B4%20-%20%E5%8D%83%E5%8D%83%E9%98%85%E6%AD%8C.mp3" type="audio/mpeg">
+  <source src="./%E9%99%88%E6%85%A7%E5%A8%B4%20-%20%E5%8D%83%E5%8D%83%E9%98%95%E6%AD%8C.mp3" type="audio/mpeg">
 </audio>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
