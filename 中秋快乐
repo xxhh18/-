@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#050a20" />
 <title>中秋快乐</title>
-<audio src="陈慧娴 - 千千阕歌.mp3" autoplay loop></audio>  
+<audio id="bgMusic" loop preload="auto">
+  <source src="./%E9%99%88%E6%85%A7%E5%A8%B4%20-%20%E5%8D%83%E5%8D%83%E9%98%85%E6%AD%8C.mp3" type="audio/mpeg">
+</audio>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; margin: 0; }
@@ -199,6 +201,7 @@
   </div>
 
   <div class="bar">
+    <button class="btn" id="btnMusic">播放音乐</button>
     <button class="btn" id="btnWish">换个祝福</button>
     <button class="btn" id="btnShare">分享祝福</button>
   </div>
@@ -266,6 +269,33 @@
     return wishes[i];
   }
 
+  /* -------- 音乐控制 -------- */
+  var music = document.getElementById('bgMusic');
+  var btnMusic = document.getElementById('btnMusic');
+  function setMusicButtonState(isPlaying) {
+    btnMusic.textContent = isPlaying ? '暂停音乐' : '播放音乐';
+  }
+  function toggleMusic() {
+    if (!music) return;
+    if (music.paused) {
+      var playPromise = music.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(function () {
+          setMusicButtonState(false);
+        });
+      }
+      setMusicButtonState(true);
+    } else {
+      music.pause();
+      setMusicButtonState(false);
+    }
+  }
+
+  btnMusic.addEventListener('click', function () {
+    toggleMusic();
+    vibrate(12);
+  });
+
   /* -------- 星星迸发 -------- */
   function burst() {
     var r = document.getElementById('moonWrap').getBoundingClientRect();
@@ -295,6 +325,12 @@
     setTimeout(function () { moonWrap.classList.remove('lit'); }, 600);
     burst();
     nextWish();
+    if (music && music.paused) {
+      try {
+        music.play();
+        setMusicButtonState(true);
+      } catch (e) {}
+    }
     vibrate(18);
   });
 
